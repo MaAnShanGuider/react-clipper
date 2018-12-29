@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import './Clipper.scss';
+
+// 图片拖动时，允许他们超出边际，也就是让他们自由拖动
 class Cliper extends Component {
 	constructor(props) {
 		super(props);
@@ -18,21 +20,24 @@ class Cliper extends Component {
 		}
 	}
 	handleChange = (e) => {
+		const { deviceWidth } = this.state;
+		let _this = this;
 		console.log(e.currentTarget.files[0])
 
-	
+		if(!e.currentTarget.files[0]){
+			return;
+		}
 			
 		let reader = new FileReader();
-                // 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
+				// 监听reader对象的的onload事件，当图片加载完成时，把base64编码賦值给预览图片
         reader.addEventListener("load", () => {
 					console.log(reader);
 					let img = new Image();
 					img.src = reader.result;//获取编码后的值,也可以用this.result获取
 					img.onload = function () {
-						console.log('height:'+this.height+'----width:'+this.width)
+						// console.log('height:'+this.height+'----width:'+this.width)
+						_this.setState({ show_modals: true, img_src: reader.result, imgCurrentWidth:this.width > (deviceWidth / 2 ) ? this.width : deviceWidth / 2,   });
 					}
-
-                    this.setState({ show_modals: true, img_src: reader.result });
              }, false);
         // 调用reader.readAsDataURL()方法，把图片转成base64
         reader.readAsDataURL(e.currentTarget.files[0]);		
@@ -58,6 +63,7 @@ class Cliper extends Component {
 			initClipHeight,
 			deviceHeight,
 			deviceWidth,
+			imgCurrentWidth
 		 } = this.state;
 
 		// 设备宽度
@@ -108,12 +114,12 @@ class Cliper extends Component {
 						<div style={{
 							width: deviceWidth * 0.25
 						}}></div>
-						<img src={img_src} alt="" style={{width: deviceWidth}} />
+						<img src={img_src} alt="" style={{width: imgCurrentWidth, top: (deviceHeight - 80 - deviceWidth * 0.5) / 2 , left:deviceWidth * 0.25 }} />
 					</div>	
 					<div className="footer-container">
 						<button>按钮</button>
-						<div onClick={() => handleClickRotate(1)}>左旋</div>
-						<div onClick={() => handleClickRotate(2)}>右旋</div>
+						<div className="g-btn" onClick={() => handleClickRotate(1)}>左旋</div>
+						<div className="g-btn" onClick={() => handleClickRotate(2)}>右旋</div>
 					</div>
 
 			</div>
