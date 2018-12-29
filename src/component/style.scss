@@ -1,0 +1,153 @@
+.save-button{
+  padding:10px 20px;
+  margin:10px 120px;
+}
+
+.img-show{
+  margin-top:20px;
+}
+
+.inline-block{
+	display: inline-block;
+}
+
+.center-father-style-align{
+	display: flex;
+	align-items: center;
+}
+
+.company-card-info{
+	color: white;	
+	
+	// 162-30*2
+	// height: 102px; 
+	width: 334px;
+	height: 166px; 
+	
+	// width: 100%;
+	// background-color: black;
+	border-radius: 5px;
+	padding: 0 20px;
+
+	background-image: url(https://img.alicdn.com/tfs/TB1tOvDXjuhSKJjSspjXXci8VXa-668-332.png);
+	background-repeat: no-repeat;
+}
+
+
+.company-name-short{
+	font-size: 20px;
+	margin-bottom: 4.5px;
+}
+
+.company-name-full{
+	font-size: 13px;
+	color: #fff;
+	opacity: 0.7;
+}
+
+.company-card-powerby-icon{
+	margin-top: 60px;
+	padding-bottom: 17.5px;
+}
+
+.powerby-icon svg{
+	width: 116px;
+	height: 12.5px;
+}
+
+.company-connection{
+	margin-top: 23.5px;
+}
+
+.company-phone{
+	margin-bottom: 2px;
+}
+
+
+
+.cover-grey{
+	background-color: grey;
+	opacity: 0.5;
+	
+  width: 100%;
+  height: 100%;
+  // position: absolute;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.button-inside{
+  // position: absolute;
+  position: fixed;
+  
+  bottom: 0;
+	width: 100%;
+	font-size: 18px;
+	left: 0;
+}
+
+.cover-button-ul{
+	border: 5px solid #fff;
+	border-radius: 5px;
+	margin: 0 20px;
+}
+
+.cover-button-ul li{
+	border-bottom: 1px solid #D1D1D1;
+}
+
+.no-border{
+	border: 0 !important;
+}
+
+.cover-button{
+	background-color: #fff;
+	color: #4A4A4A;
+	width: 100%;
+	text-align: center;
+	padding: 10px 0;
+}
+
+
+.cover-button-cancel{
+	// margin: 15px 20px;
+	border-radius: 5px;
+}
+
+.cover-button-cancel-a,
+.cover-button-div{
+	margin: 15px 20px;
+}
+
+.cover-button-div{
+	background-color: #fff;
+	border-radius: 5px;
+	
+	color: #4A4A4A;
+	text-align: center;
+	padding: 10px 0;
+	font-size: 18px;
+}
+
+.company-webmail-text,
+.company-phone-text{
+	font-size: 11px;
+	color: #fff;
+	opacity: 0.4;
+}
+
+
+.company-phone-number,
+.company-webmail-number{
+	font-size: 13px;
+}
+
+.no-phone-number-top{
+	padding-top: 20px;
+}
+
+.hint-tips{
+	line-height: 3;
+}
+
