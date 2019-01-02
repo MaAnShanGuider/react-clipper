@@ -17,6 +17,10 @@ class Cliper extends Component {
 			initClipWidth: deviceWidth * 0.8,
 			initClipHeight: deviceWidth * 0.8,
 			imgCurrentWidth: deviceWidth * 0.5,
+			imgCurrentTop: (deviceHeight - 80 - deviceWidth * 0.5) / 2,
+			imgCurrentLeft: deviceWidth * 0.25,
+			clickX: 0,
+			clickY: 0,
 		}
 	}
 	handleChange = (e) => {
@@ -54,6 +58,35 @@ class Cliper extends Component {
 
 		}
 	}
+	handleStopDefaultBuble = (e) => {
+		e.nativeEvent.stopImmediatePropagation();
+		e.stopPropagation();
+	}
+	handleTouchStart =(e) => {
+		console.log(e.nativeEvent.changedTouches[0].clientX,e.nativeEvent.changedTouches[0].clientY);
+		this.setState({
+			clickX: e.nativeEvent.changedTouches[0].clientX,
+			clickY: e.nativeEvent.changedTouches[0].clientY,
+		});
+		
+	}
+	handleTouchMove =(e) => {
+		const { clickX, clickY, deviceWidth, deviceHeight, imgCurrentTop, imgCurrentLeft} = this.state;
+		// 
+		const nowClickX = e.nativeEvent.changedTouches[0].clientX;
+		const nowClickY = e.nativeEvent.changedTouches[0].clientY;
+		// console.log(e.nativeEvent.changedTouches[0].clientX,e.nativeEvent.changedTouches[0].clientY);
+
+		this.setState({
+			clickX: nowClickX,
+			clickY: nowClickY,
+			imgCurrentTop: imgCurrentTop + nowClickY - clickY ,
+			imgCurrentLeft: imgCurrentLeft + nowClickX - clickX,
+		})
+	}
+	handleTouchEnd =(e) => {
+		console.log(e);
+	}
 	// 难点其实在canvas 那里，别的倒不算什么
 	render(){
 		const { 
@@ -63,7 +96,9 @@ class Cliper extends Component {
 			initClipHeight,
 			deviceHeight,
 			deviceWidth,
-			imgCurrentWidth
+			imgCurrentWidth,
+			imgCurrentTop,
+			imgCurrentLeft,
 		 } = this.state;
 
 		// 设备宽度
@@ -87,34 +122,49 @@ class Cliper extends Component {
 				
 				<div className="modals" style={ show_modals ? {} : {display: 'none'}} onClick={this.handleModalsClick}>
 					<div className="outer-container" style={{ height: deviceHeight - 80}}>
-						<div style={{
-							width: deviceWidth * 0.25
-						}}></div>
-						<div className="center-container" style={{
-							width: deviceWidth * 0.5,
-						}}>
-							<div style={{
-								height: (deviceHeight - 80 - deviceWidth * 0.5) / 2,
+						<div 
+							onClick={this.handleStopDefaultBuble}
+							style={{
+								width: deviceWidth * 0.25
 							}}></div>
-							<div className="img-container" style={{
-								height: deviceWidth * 0.5,
+						<div className="center-container" 
+							onClick={this.handleStopDefaultBuble}
+							style={{
 								width: deviceWidth * 0.5,
-								background: 'none',
-							}}
+							}}>
+							<div 
+								onClick={this.handleStopDefaultBuble}
+								style={{
+									height: (deviceHeight - 80 - deviceWidth * 0.5) / 2,
+								}}></div>
+							<div 
+								className="img-container" 
+								onTouchStart={this.handleTouchStart}
+								onTouchMove={this.handleTouchMove}
+								onTouchEnd={this.handleTouchEnd}
+								style={{
+									height: deviceWidth * 0.5,
+									width: deviceWidth * 0.5,
+									background: 'none',
+								}}
 							>
 								<span></span>
 								<span></span>
 								<span></span>
 								<span></span>
 							</div>
-							<div style={{
-								height: (deviceHeight - 80 - deviceWidth * 0.5) / 2,
-							}}></div>
+							<div 
+								onClick={this.handleStopDefaultBuble}
+								style={{
+									height: (deviceHeight - 80 - deviceWidth * 0.5) / 2,
+								}}></div>
 						</div>
-						<div style={{
-							width: deviceWidth * 0.25
-						}}></div>
-						<img src={img_src} alt="" style={{width: imgCurrentWidth, top: (deviceHeight - 80 - deviceWidth * 0.5) / 2 , left:deviceWidth * 0.25 }} />
+						<div 
+							onClick={this.handleStopDefaultBuble}
+							style={{
+								width: deviceWidth * 0.25
+							}}></div>
+						<img src={img_src} alt="" style={{width: imgCurrentWidth, top: imgCurrentTop , left: imgCurrentLeft }} />
 					</div>	
 					<div className="footer-container">
 						<button>按钮</button>
