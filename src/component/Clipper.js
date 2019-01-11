@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 import './Clipper.scss';
 
+const avoidBodyScroll = function(e){
+	e.preventDefault();
+};
+document.body.addEventListener('touchmove', avoidBodyScroll, { passive: false });
 // 图片拖动时，允许他们超出边际，也就是让他们自由拖动
 class Cliper extends Component {
 	constructor(props) {
@@ -22,6 +26,9 @@ class Cliper extends Component {
 			clickX: 0,
 			clickY: 0,
 		}
+	}
+	componentDidMount() {
+
 	}
 	handleChange = (e) => {
 		const { deviceWidth } = this.state;
